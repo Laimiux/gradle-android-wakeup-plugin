@@ -7,4 +7,4 @@ cache:
     - $HOME/.gradle/daemon
 
 jdk:
-  - oraclejdk6
+  - oraclejdk8
