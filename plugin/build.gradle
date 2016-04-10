@@ -1,0 +1,33 @@
+group 'com.antyzero.wakeup'
+version '0.0.1-SNAPSHOT'
+
+apply plugin: 'groovy'
+apply plugin: 'com.github.ben-manes.versions'
+
+sourceCompatibility = 1.6
+targetCompatibility = 1.6
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile gradleApi()
+    compile localGroovy()
+
+    compile 'com.android.tools.build:gradle:2.0.0'
+    compile 'com.android.tools.ddms:ddmlib:24.3.0'
+
+    testCompile 'junit:junit:4.12'
+}
+
+jar {
+    manifest {
+        attributes 'Implementation-Title' : 'WakeUp plugin wakes tested devices up',
+                'Implementation-Version': version,
+                'Built-By' : System.getProperty('user.name'),
+                'Built-Date' : new Date(),
+                'Built-JDK' : System.getProperty('java.version'),
+                'Built-Gradle' : gradle.gradleVersion
+    }
+}
