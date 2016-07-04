@@ -11,5 +11,6 @@ class WakeUpRunTask extends DefaultTask {
         //def wakeUpDevice = new WakeUpDevice(project.android.sdkDirectory);
         def wakeUpDevice = new WakeUpDevice();
         wakeUpDevice.wakeDevices()
+        wakeUpDevice.finish()
     }
 }
