@@ -1,5 +1,5 @@
-group rootProject.group
-version rootProject.version
+group 'com.antyzero.wakeup'
+version '0.0.2-SNAPSHOT'
 
 buildscript {
     repositories {
@@ -8,7 +8,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.0.0'
-        classpath rootProject.group + ':wakeup-plugin:' + rootProject.version
+        classpath group + ':wakeup-plugin:' + version
     }
 }
 
@@ -58,7 +58,7 @@ dependencies {
 
     // We don't rely on code of the plugin but we need it to build it's artifacts before we build example app
     // This won't have any impact on Android module
-    provided project(':plugin')
+    //provided project(':plugin')
 }
 
 /**
