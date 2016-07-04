@@ -23,6 +23,13 @@ public class WakeUpDeviceTest {
     @Test
     public void testWakeUp() throws Exception {
 
+        // Given
+        //...
+
+        // When
         wakeUpDevice.wakeDevices();
+
+        // Then
+        // our device should wake up and unlock if possible
     }
 }

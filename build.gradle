@@ -1,16 +1,12 @@
 group 'com.antyzero.wakeup'
-version '0.0.1-SNAPSHOT'
-
-buildscript {
-    repositories {
-        jcenter()
-    }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:2.0.0'
-        classpath 'com.github.ben-manes:gradle-versions-plugin:0.12.0'
-    }
-}
+version '0.0.2-SNAPSHOT'
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+allprojects {
+    repositories {
+        jcenter()
+    }
 }

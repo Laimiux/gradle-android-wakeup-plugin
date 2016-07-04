@@ -1,7 +1,19 @@
-group 'com.antyzero.wakeup'
-version '0.0.1-SNAPSHOT'
+group rootProject.group
+version rootProject.version
+
+buildscript {
+    repositories {
+        jcenter()
+        mavenLocal()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.0.0'
+        classpath rootProject.group + ':wakeup-plugin:' + rootProject.version
+    }
+}
 
 apply plugin: 'com.android.application'
+//apply plugin: 'com.antyzero.wakeup'
 
 android {
     compileSdkVersion 23
@@ -24,6 +36,39 @@ android {
     }
 }
 
+preBuild.dependsOn ':plugin:publishToMavenLocal'
+
 dependencies {
     compile 'com.android.support:appcompat-v7:23.2.1'
+    compile 'com.android.support:design:23.2.1'
+
+    testCompile 'junit:junit:4.12'
+
+    androidTestCompile 'com.android.support.test:runner:0.5'
+    androidTestCompile 'com.android.support.test:rules:0.5'
+
+    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
+    androidTestCompile('com.android.support.test.espresso:espresso-contrib:2.2.2') {
+        exclude group: 'com.android.support', module: 'appcompat'
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude module: 'recyclerview-v7'
+    }
+    androidTestCompile 'com.android.support:appcompat-v7:23.2.1'
+    androidTestCompile 'com.android.support:design:23.2.1'
+
+    // We don't rely on code of the plugin but we need it to build it's artifacts before we build example app
+    // This won't have any impact on Android module
+    provided project(':plugin')
+}
+
+/**
+ * Solution for problem: com.android.dex.DexException: Multiple dex files define Landroid/support/test/BuildConfig;
+ * Happens when run Android Tests with new espresso 2.1
+ *
+ * More details: http://stackoverflow.com/questions/29857695/android-tests-build-error-multiple-dex-files-define-landroid-support-test-build
+ */
+configurations.all {
+    resolutionStrategy.force 'com.android.support:support-annotations:23.0.1'
+    resolutionStrategy.force 'com.android.support:appcompat-v7:23.2.1'
+    resolutionStrategy.force 'com.android.support:design:23.2.1'
 }

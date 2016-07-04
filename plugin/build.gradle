@@ -1,15 +1,11 @@
-group 'com.antyzero.wakeup'
-version '0.0.1-SNAPSHOT'
+group rootProject.group
+version rootProject.version
 
 apply plugin: 'groovy'
-apply plugin: 'com.github.ben-manes.versions'
+apply plugin: 'maven-publish'
 
 sourceCompatibility = 1.6
 targetCompatibility = 1.6
-
-repositories {
-    jcenter()
-}
 
 dependencies {
     compile gradleApi()
@@ -23,11 +19,28 @@ dependencies {
 
 jar {
     manifest {
-        attributes 'Implementation-Title' : 'WakeUp plugin wakes tested devices up',
+        attributes 'Implementation-Title' : 'WakeUp plugin wakes tested Android devices up',
                 'Implementation-Version': version,
                 'Built-By' : System.getProperty('user.name'),
                 'Built-Date' : new Date(),
                 'Built-JDK' : System.getProperty('java.version'),
                 'Built-Gradle' : gradle.gradleVersion
+    }
+}
+
+task integrationTest(type: GradleBuild, dependsOn: ['clean', 'publishToMavenLocal']) {
+    dir = project(':example').projectDir
+    tasks = ['clean', 'connectedAndroidTest']
+}
+
+publishing {
+
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+            groupId project.group
+            artifactId 'wakeup-plugin'
+            version project.version
+        }
     }
 }

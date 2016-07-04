@@ -1,4 +1,3 @@
 rootProject.name = 'wakeup'
-include 'plugin'
-include 'example'
+include 'plugin', 'example'
 

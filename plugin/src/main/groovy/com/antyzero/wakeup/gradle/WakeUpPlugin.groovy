@@ -1,6 +1,7 @@
 package com.antyzero.wakeup.gradle
 
 import com.android.build.gradle.AppPlugin
+import com.android.build.gradle.BaseExtension
 import com.android.build.gradle.LibraryPlugin
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -19,8 +20,15 @@ class WakeUpPlugin implements Plugin<Project> {
         wakeUpTask = project.task("wakeUp") {
             group = JavaBasePlugin.CHECK_TASK_NAME
             description = "Wake up (and unlock if possible) all connected devices"
+
         }
 
+        project.tasks.add(wakeUpTask)
 
+
+
+        //wakeUpTask.mustRunAfter
+
+        // What ever we want to do we need to do it dependOn assembleDebugAndroidTest
     }
 }
