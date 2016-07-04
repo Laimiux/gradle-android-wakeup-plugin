@@ -2,7 +2,6 @@ group 'com.antyzero.wakeup'
 version '0.0.2-SNAPSHOT'
 
 apply plugin: 'groovy'
-apply plugin: 'idea'
 apply plugin: 'maven-publish'
 
 sourceCompatibility = 1.7
@@ -37,6 +36,8 @@ task integrationTest(type: GradleBuild, dependsOn: ['clean', 'publishToMavenLoca
     dir = new File('../example')
     tasks = ['clean', 'connectedAndroidTest']
 }
+
+publishToMavenLocal.dependsOn 'clean'
 
 publishing {
 

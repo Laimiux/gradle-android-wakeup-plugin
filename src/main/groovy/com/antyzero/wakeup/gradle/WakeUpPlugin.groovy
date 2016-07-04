@@ -17,7 +17,7 @@ class WakeUpPlugin implements Plugin<Project> {
             throw new IllegalStateException("Android plugin is not found")
         }
 
-        def wakeUpTask = project.task("wakeUp") {
+        def wakeUpTask = project.task("wakeUp", type: WakeUpRunTask) {
             group = JavaBasePlugin.CHECK_TASK_NAME
             description = "Wake up (and unlock if possible) all connected devices"
         }
@@ -25,8 +25,7 @@ class WakeUpPlugin implements Plugin<Project> {
         BaseExtension android = project.android
 
         android.testVariants.all { TestVariant variant ->
-
-            System.out.println(variant.name.capitalize());
+            variant.connectedInstrumentTest.dependsOn wakeUpTask
         }
     }
 }

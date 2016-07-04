@@ -5,7 +5,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.0.0'
-        classpath group + 'com.antyzero.wakeup:wakeup-plugin:+'
+        classpath group + 'com.antyzero.wakeup:wakeup-plugin:+' // yes, any version
     }
 }
 
