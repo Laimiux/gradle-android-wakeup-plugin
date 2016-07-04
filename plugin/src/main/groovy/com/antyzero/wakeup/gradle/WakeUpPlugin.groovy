@@ -3,10 +3,10 @@ package com.antyzero.wakeup.gradle
 import com.android.build.gradle.AppPlugin
 import com.android.build.gradle.BaseExtension
 import com.android.build.gradle.LibraryPlugin
+import com.android.build.gradle.api.TestVariant
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.plugins.JavaBasePlugin
-
 
 class WakeUpPlugin implements Plugin<Project> {
 
@@ -17,18 +17,16 @@ class WakeUpPlugin implements Plugin<Project> {
             throw new IllegalStateException("Android plugin is not found")
         }
 
-        wakeUpTask = project.task("wakeUp") {
+        def wakeUpTask = project.task("wakeUp") {
             group = JavaBasePlugin.CHECK_TASK_NAME
             description = "Wake up (and unlock if possible) all connected devices"
-
         }
 
-        project.tasks.add(wakeUpTask)
+        BaseExtension android = project.android
 
+        android.testVariants.all { TestVariant variant ->
 
-
-        //wakeUpTask.mustRunAfter
-
-        // What ever we want to do we need to do it dependOn assembleDebugAndroidTest
+            System.out.println(variant.name.capitalize());
+        }
     }
 }

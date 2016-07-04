@@ -13,11 +13,11 @@ buildscript {
 }
 
 apply plugin: 'com.android.application'
-//apply plugin: 'com.antyzero.wakeup'
+apply plugin: 'com.antyzero.wakeup'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.3"
+    buildToolsVersion "23.0.1"
 
     defaultConfig {
         applicationId "com.antyzero.wakeup.example"

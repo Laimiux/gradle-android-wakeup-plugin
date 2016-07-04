@@ -2,10 +2,11 @@ group rootProject.group
 version rootProject.version
 
 apply plugin: 'groovy'
+apply plugin: 'idea'
 apply plugin: 'maven-publish'
 
-sourceCompatibility = 1.6
-targetCompatibility = 1.6
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
 
 dependencies {
     compile gradleApi()
@@ -19,12 +20,12 @@ dependencies {
 
 jar {
     manifest {
-        attributes 'Implementation-Title' : 'WakeUp plugin wakes tested Android devices up',
+        attributes 'Implementation-Title': 'WakeUp plugin wakes tested Android devices up',
                 'Implementation-Version': version,
-                'Built-By' : System.getProperty('user.name'),
-                'Built-Date' : new Date(),
-                'Built-JDK' : System.getProperty('java.version'),
-                'Built-Gradle' : gradle.gradleVersion
+                'Built-By': System.getProperty('user.name'),
+                'Built-Date': new Date(),
+                'Built-JDK': System.getProperty('java.version'),
+                'Built-Gradle': gradle.gradleVersion
     }
 }
 
