@@ -26,6 +26,7 @@ class WakeUpPlugin implements Plugin<Project> {
 
         android.testVariants.all { TestVariant variant ->
             variant.connectedInstrumentTest.dependsOn wakeUpTask
+            System.out.println("---------------------\n\n" + variant.connectedInstrumentTest.name + "\n\n---------------------");
         }
     }
 }

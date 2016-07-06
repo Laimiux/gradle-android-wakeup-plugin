@@ -11,6 +11,7 @@ public class WakeUpDevice {
     private final String sdkAndroid;
 
     private NullOutputReceiver outputReceiver = new NullOutputReceiver();
+    private AndroidDebugBridge androidDebugBridge;
 
     public WakeUpDevice() {
         this(null);
@@ -18,18 +19,41 @@ public class WakeUpDevice {
 
     public WakeUpDevice(File file) {
         this.sdkAndroid = file != null ? file.toString() : null;
-        AndroidDebugBridge.init(false);
+        initializeADBConnection();
     }
 
     public void finish() {
+        AndroidDebugBridge.disconnectBridge();
         AndroidDebugBridge.terminate();
     }
 
-    public void wakeDevices() {
+    private void initializeADBConnection() {
 
-        AndroidDebugBridge androidDebugBridge = sdkAndroid == null ?
-                AndroidDebugBridge.createBridge() :
-                AndroidDebugBridge.createBridge(sdkAndroid + "/platform-tools/adb", false);
+        // Get a device bridge instance. Initialize, create and restart.
+        try {
+            AndroidDebugBridge.initIfNeeded(false);
+        } catch (IllegalStateException ise) {
+            ise.printStackTrace();
+            System.out.println("The IllegalStateException is not a show " +
+                    "stopper. It has been handled. This is just debug spew." +
+                    " Please proceed.");
+        }
+        androidDebugBridge = AndroidDebugBridge.getBridge();
+
+        if (androidDebugBridge == null) {
+            androidDebugBridge = AndroidDebugBridge.createBridge(sdkAndroid, false);
+        }
+
+        if (androidDebugBridge.isConnected() && androidDebugBridge.hasInitialDeviceList()) {
+            IDevice[] connectedDevices = androidDebugBridge.getDevices();
+
+            for (int i = 0; i < connectedDevices.length; i++) {
+                // do nothing
+            }
+        }
+    }
+
+    public void wakeDevices() {
 
         try {
             IDevice[] devices = requestDevices(androidDebugBridge, 10);
@@ -51,6 +75,7 @@ public class WakeUpDevice {
     }
 
     private void wakeDevice(IDevice device) throws TimeoutException, AdbCommandRejectedException, ShellCommandUnresponsiveException, IOException, InterruptedException {
+        Thread.sleep(500L);
         device.executeShellCommand("input keyevent 26", outputReceiver);
         Thread.sleep(500L);
         device.executeShellCommand("input keyevent 82", outputReceiver);

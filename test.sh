@@ -2,4 +2,4 @@
 
 ./gradlew publishToMavenLocal
 cd example
-./gradlew clean connectedDebugAndroidTest
+./gradlew clean connectedAndroidTest
