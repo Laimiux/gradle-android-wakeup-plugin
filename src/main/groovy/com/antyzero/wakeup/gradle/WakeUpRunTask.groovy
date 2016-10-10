@@ -8,8 +8,8 @@ class WakeUpRunTask extends DefaultTask {
 
     @TaskAction
     void runWakeUp() {
-        //def wakeUpDevice = new WakeUpDevice(project.android.sdkDirectory);
-        def wakeUpDevice = new WakeUpDevice();
+        def wakeUpDevice = new WakeUpDevice(project.android.sdkDirectory);
+//        def wakeUpDevice = new WakeUpDevice();
         wakeUpDevice.wakeDevices()
         wakeUpDevice.finish()
     }

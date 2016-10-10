@@ -18,7 +18,7 @@ public class WakeUpDevice {
 
     public WakeUpDevice(File file) {
         this.sdkAndroid = file != null ? file.toString() : null;
-        AndroidDebugBridge.init(false);
+        AndroidDebugBridge.initIfNeeded(false);
     }
 
     public void finish() {
