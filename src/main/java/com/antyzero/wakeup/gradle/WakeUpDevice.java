@@ -51,7 +51,7 @@ public class WakeUpDevice {
     }
 
     private void wakeDevice(IDevice device) throws TimeoutException, AdbCommandRejectedException, ShellCommandUnresponsiveException, IOException, InterruptedException {
-        device.executeShellCommand("input keyevent 26", outputReceiver);
+        device.executeShellCommand("input keyevent KEYCODE_WAKEUP", outputReceiver);
         Thread.sleep(500L);
         device.executeShellCommand("input keyevent 82", outputReceiver);
         Thread.sleep(500L);
